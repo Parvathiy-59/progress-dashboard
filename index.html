@@ -100,10 +100,14 @@
 
             <!-- Task List Widget -->
             <div class="card" style="grid-column: span 2;">
-                <div class="card-header">
-                    <span class="card-title">Quick Missions</span>
-                    <button class="btn-secondary" style="padding: 4px 8px; border-radius: 8px; font-size: 0.8rem;">+ Add Task</button>
-                </div>
+              <div class="card-header">
+    <span class="card-title">Quick Missions</span>
+    <div>
+        <input type="text" id="taskInput" placeholder="Enter task..." 
+        style="padding:5px; border-radius:6px; border:none;">
+        <button onclick="addTask()" class="btn-secondary">+ Add</button>
+    </div>
+</div>
                 <div class="task-list">
                     <div class="task-item">
                         <div class="checkbox checked" onclick="toggleTask(this)"><i data-lucide="check" size="14"></i></div>
