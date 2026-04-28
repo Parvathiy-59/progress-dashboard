@@ -1,25 +1,63 @@
-body {
-    margin: 0;
-    font-family: Arial;
-    display: flex;
-    background: #0f172a;
-    color: white;
+<!-- ========================= styles.css =========================
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    width: 350px;
+    backdrop-filter: blur(10px);
 }
 
-/* Sidebar */
+.login-card input,
+.login-card button,
+#taskInput,
+#username {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.login-card button,
+button {
+    background: #3b82f6;
+    color: white;
+    cursor: pointer;
+}
+
+#appPage {
+    display: none;
+}
+
+#appPage.active {
+    display: flex;
+}
+
 .sidebar {
-    width: 200px;
+    width: 240px;
     background: #020617;
+    min-height: 100vh;
     padding: 20px;
 }
 
-/* Main */
+.sidebar nav a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+}
+
+.sidebar nav a:hover {
+    background: #1e293b;
+}
+
 .main {
     flex: 1;
     padding: 20px;
 }
 
-/* Header */
 .header {
     display: flex;
     justify-content: space-between;
@@ -33,42 +71,48 @@ body {
 }
 
 .profile img {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     cursor: pointer;
 }
 
-/* Grid */
 .grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
     margin-top: 20px;
 }
 
-/* Cards */
 .card {
     background: #1e293b;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-/* Timer */
+.full-width { width: 100%; }
+
+.content-section { display: none; }
+.content-section.active-section { display: block; }
+
 #timer {
-    font-size: 2rem;
-    margin: 10px 0;
+    font-size: 3rem;
+    margin: 20px 0;
+    text-align: center;
 }
 
-/* Tasks */
 #taskList div {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    background: #334155;
+    padding: 10px;
     margin-top: 10px;
+    border-radius: 8px;
 }
 
-button {
-    margin-top: 10px;
-    padding: 5px 10px;
-    cursor: pointer;
+.dark-mode {
+    background: #f8fafc;
+    color: #0f172a;
 }
