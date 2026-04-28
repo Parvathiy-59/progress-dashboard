@@ -1,116 +1,70 @@
-/* GOOGLE FONT */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-
-/* BACKGROUND */
 body {
-    background: linear-gradient(135deg, #0f172a, #1e293b);
-    color: #e2e8f0;
-    min-height: 100vh;
-}
-
-/* LOGIN PAGE */
-.login-container {
-    height: 100vh;
+    margin: 0;
+    font-family: Arial;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    background: #0f172a;
+    color: white;
 }
 
-.login-box {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(15px);
-    padding: 40px;
-    border-radius: 15px;
-    width: 320px;
+/* LOGIN */
+.login {
+    width: 300px;
+    margin: 150px auto;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
-.login-box h2 {
-    margin-bottom: 20px;
-    color: #38bdf8;
-}
-
-.login-box input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 8px;
-    background: #1e293b;
-    color: white;
-}
-
-.login-box button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background: linear-gradient(135deg, #38bdf8, #6366f1);
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.login-box button:hover {
-    transform: scale(1.05);
-}
-
-/* NAVBAR */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 30px;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(10px);
-}
-
-.navbar h2 {
-    color: #38bdf8;
-}
-
-.navbar a {
-    margin-left: 20px;
-    color: #cbd5f5;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.navbar a:hover {
-    color: #38bdf8;
-}
-
-/* CARDS */
-.container {
+/* SIDEBAR */
+.sidebar {
+    width: 200px;
+    background: #020617;
+    height: 100vh;
     padding: 20px;
 }
 
-.card {
-    background: rgba(255,255,255,0.05);
-    padding: 20px;
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
     margin: 15px 0;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    transition: 0.3s;
+    cursor: pointer;
 }
 
-.card:hover {
-    transform: translateY(-5px);
+/* MAIN */
+.main {
+    flex: 1;
+    padding: 20px;
 }
 
-/* BUTTONS */
+/* HEADER */
+.header {
+    margin-bottom: 20px;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+/* CARD */
+.card {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* TIMER */
+#timer {
+    font-size: 2rem;
+    margin: 10px 0;
+}
+
+/* BUTTON */
 button {
-    padding: 8px 15px;
-    border: none;
-    border-radius: 6px;
-    background: #38bdf8;
-    color: black;
+    margin-top: 10px;
+    padding: 5px 10px;
     cursor: pointer;
 }
