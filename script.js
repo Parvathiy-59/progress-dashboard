@@ -1,154 +1,91 @@
-let time = 1500;
-let timerInterval;
-
+// LOGIN SYSTEM
 function login() {
-    const username = document.getElementById('loginUsername').value.trim();
-    if (!username) return alert('Please enter your name');
+    const user = document.getElementById("loginUser").value;
+    const pass = document.getElementById("loginPass").value;
 
-    localStorage.setItem('studyhubUser', username);
-    document.getElementById('loginPage').classList.remove('active');
-    document.getElementById('appPage').classList.add('active');
-    document.getElementById('welcomeText').innerText = `Welcome, ${username} 👋`;
-    document.getElementById('username').value = username;
+    if (user === "admin" && pass === "1234") {
+        localStorage.setItem("loggedIn", "true");
+
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("app").style.display = "block";
+    } else {
+        alert("Invalid credentials");
+    }
 }
 
 function logout() {
-    document.getElementById('appPage').classList.remove('active');
-    document.getElementById('loginPage').classList.add('active');
+    localStorage.removeItem("loggedIn");
+    location.reload();
 }
 
-function showSection(sectionId) {
-    document.querySelectorAll('.content-section').forEach(section => {
-        section.classList.remove('active-section');
-    });
-    document.getElementById(sectionId).classList.add('active-section');
-    updateAnalytics();
+// CHECK LOGIN
+window.onload = () => {
+    if (localStorage.getItem("loggedIn") === "true") {
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("app").style.display = "block";
+    }
+};
+
+// NAVIGATION
+function showPage(page) {
+    document.querySelectorAll(".page").forEach(p => p.style.display = "none");
+    document.getElementById(page).style.display = "block";
 }
+
+// TIMER
+let time = 1500;
+let timer;
 
 function startTimer() {
-    if (timerInterval) return;
-    timerInterval = setInterval(() => {
+    if (timer) return;
+
+    timer = setInterval(() => {
         time--;
         updateTimer();
+
         if (time <= 0) {
-            clearInterval(timerInterval);
-            timerInterval = null;
-            alert("Session completed!");
+            clearInterval(timer);
+            timer = null;
+            alert("Session Complete!");
         }
     }, 1000);
 }
 
 function resetTimer() {
-    clearInterval(timerInterval);
-    timerInterval = null;
+    clearInterval(timer);
+    timer = null;
     time = 1500;
     updateTimer();
 }
 
 function updateTimer() {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    document.getElementById('timer').innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    let m = Math.floor(time / 60);
+    let s = time % 60;
+
+    document.getElementById("timer").innerText =
+        `${m}:${s < 10 ? "0" : ""}${s}`;
 }
 
+// TASKS
 function addTask() {
-    const input = document.getElementById('taskInput');
-    const text = input.value.trim();
-    if (!text) return;
+    const input = document.getElementById("taskInput");
+    if (!input.value) return;
 
-    const div = document.createElement('div');
-    div.innerHTML = `<span onclick="toggleTask(this)">${text}</span><button onclick="deleteTask(this)">X</button>`;
-    document.getElementById('taskList').appendChild(div);
-    input.value = '';
-    saveTasks();
-    updateAnalytics();
+    const div = document.createElement("div");
+    div.innerText = input.value;
+
+    document.getElementById("taskList").appendChild(div);
+    input.value = "";
 }
 
-function toggleTask(el) {
-    el.style.textDecoration = el.style.textDecoration === 'line-through' ? 'none' : 'line-through';
-    saveTasks();
-    updateAnalytics();
-}
+// FILE UPLOAD
+document.getElementById("fileUpload")?.addEventListener("change", function () {
+    const list = document.getElementById("fileList");
+    list.innerHTML = "";
 
-function deleteTask(btn) {
-    btn.parentElement.remove();
-    saveTasks();
-    updateAnalytics();
-}
-
-function saveTasks() {
-    const tasks = [];
-    document.querySelectorAll('#taskList div').forEach(div => {
-        const span = div.querySelector('span');
-        tasks.push({
-            text: span.innerText,
-            done: span.style.textDecoration === 'line-through'
-        });
-    });
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-}
-
-function loadTasks() {
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    tasks.forEach(task => {
-        const div = document.createElement('div');
-        div.innerHTML = `<span style="text-decoration:${task.done ? 'line-through' : 'none'}" onclick="toggleTask(this)">${task.text}</span><button onclick="deleteTask(this)">X</button>`;
-        document.getElementById('taskList').appendChild(div);
-    });
-    updateAnalytics();
-}
-
-function updateAnalytics() {
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    const completed = tasks.filter(task => task.done).length;
-    document.getElementById('totalTasks').innerText = tasks.length;
-    document.getElementById('analyticsCompleted').innerText = completed;
-    document.getElementById('completedCount').innerText = completed;
-    document.getElementById('completionRate').innerText = tasks.length ? Math.round((completed / tasks.length) * 100) + '%' : '0%';
-}
-
-document.getElementById('fileUpload').addEventListener('change', function () {
-    const list = document.getElementById('fileList');
-    list.innerHTML = '';
     Array.from(this.files).forEach(file => {
-        const li = document.createElement('li');
+        const li = document.createElement("li");
         li.textContent = file.name;
         list.appendChild(li);
     });
 });
-
-document.getElementById('avatar').onclick = () => document.getElementById('profilePic').click();
-
-document.getElementById('profilePic').addEventListener('change', function () {
-    const file = this.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = e => {
-            document.getElementById('avatar').src = e.target.result;
-            localStorage.setItem('profilePic', e.target.result);
-        };
-        reader.readAsDataURL(file);
-    }
-});
-
-function toggleTheme() {
-    document.body.classList.toggle('dark-mode');
-}
-
-window.onload = () => {
-    loadTasks();
-    const savedUser = localStorage.getItem('studyhubUser');
-    const savedPic = localStorage.getItem('profilePic');
-
-    if (savedUser) {
-        document.getElementById('loginPage').classList.remove('active');
-        document.getElementById('appPage').classList.add('active');
-        document.getElementById('welcomeText').innerText = `Welcome, ${savedUser} 👋`;
-        document.getElementById('username').value = savedUser;
-    } else {
-        document.getElementById('loginPage').classList.add('active');
-    }
-
-    if (savedPic) document.getElementById('avatar').src = savedPic;
-};
-
