@@ -17,11 +17,14 @@ function logout() {
     location.reload();
 }
 
+// ON LOAD
 window.onload = () => {
     if (localStorage.getItem("login")) {
         document.getElementById("loginPage").style.display = "none";
         document.getElementById("app").style.display = "flex";
     }
+
+    loadProfile();
 };
 
 // NAVIGATION
@@ -75,7 +78,7 @@ function addTask() {
     input.value = "";
 }
 
-// FILES
+// FILE UPLOAD
 document.getElementById("fileUpload")?.addEventListener("change", function () {
     const list = document.getElementById("fileList");
     list.innerHTML = "";
@@ -86,3 +89,17 @@ document.getElementById("fileUpload")?.addEventListener("change", function () {
         list.appendChild(li);
     });
 });
+
+// PROFILE
+function saveProfile() {
+    localStorage.setItem("name", document.getElementById("name").value);
+    localStorage.setItem("email", document.getElementById("email").value);
+    localStorage.setItem("goal", document.getElementById("goal").value);
+    loadProfile();
+}
+
+function loadProfile() {
+    document.getElementById("showName").innerText = localStorage.getItem("name") || "";
+    document.getElementById("showEmail").innerText = localStorage.getItem("email") || "";
+    document.getElementById("showGoal").innerText = localStorage.getItem("goal") || "";
+}
