@@ -1,71 +1,116 @@
+<!-- ========================= index.html ========================= -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudyHub Dashboard</title>
-
+    <title>StudyHub</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-
 <body>
-
-<!-- SIDEBAR -->
-<aside class="sidebar">
-    <h2>⚡ StudySprint</h2>
-</aside>
-
-<!-- MAIN -->
-<main class="main">
-
-    <!-- HEADER -->
-    <header class="header">
-        <h1>Welcome 👋</h1>
-
-        <div class="profile">
-            <input type="text" id="username" value="Alex Johnson">
-            <input type="file" id="profilePic" hidden>
-            <img id="avatar" src="https://via.placeholder.com/40">
+    <!-- Login Page -->
+    <section id="loginPage" class="page active">
+        <div class="login-container">
+            <div class="login-card">
+                <h1>StudyHub</h1>
+                <p>Your Smart Learning Companion</p>
+                <input type="text" id="loginUsername" placeholder="Enter your name">
+                <input type="password" id="loginPassword" placeholder="Enter password">
+                <button onclick="login()">Login</button>
+            </div>
         </div>
-    </header>
+    </section>
 
-    <!-- GRID -->
-    <div class="grid">
+    <!-- Main App -->
+    <section id="appPage" class="page">
+        <aside class="sidebar">
+            <h2>⚡ StudyHub</h2>
+            <nav>
+                <a href="#" onclick="showSection('dashboard')">Dashboard</a>
+                <a href="#" onclick="showSection('tasks')">Tasks</a>
+                <a href="#" onclick="showSection('analytics')">Analytics</a>
+                <a href="#" onclick="showSection('resources')">Resources</a>
+                <a href="#" onclick="showSection('settings')">Settings</a>
+                <a href="#" onclick="logout()">Logout</a>
+            </nav>
+        </aside>
 
-        <!-- TIMER -->
-        <div class="card">
-            <h3>Focus Timer</h3>
-            <div id="timer">25:00</div>
-            <button onclick="startTimer()">Start</button>
-            <button onclick="resetTimer()">Reset</button>
-        </div>
+        <main class="main">
+            <header class="header">
+                <h1 id="welcomeText">Welcome</h1>
+                <div class="profile">
+                    <input type="text" id="username" value="Student">
+                    <input type="file" id="profilePic" hidden>
+                    <img id="avatar" src="https://via.placeholder.com/40" alt="Profile">
+                </div>
+            </header>
 
-        <!-- TASKS -->
-        <div class="card">
-            <h3>Tasks</h3>
+            <!-- Dashboard -->
+            <section id="dashboard" class="content-section active-section">
+                <div class="grid">
+                    <div class="card">
+                        <h3>Focus Timer</h3>
+                        <div id="timer">25:00</div>
+                        <button onclick="startTimer()">Start</button>
+                        <button onclick="resetTimer()">Reset</button>
+                    </div>
 
-            <input type="text" id="taskInput" placeholder="Enter task">
-            <button onclick="addTask()">Add Task</button>
+                    <div class="card">
+                        <h3>Quick Stats</h3>
+                        <p>Tasks Completed: <span id="completedCount">0</span></p>
+                        <p>Study Streak: 7 Days</p>
+                        <p>Focus Sessions: 12</p>
+                    </div>
 
-            <div id="taskList"></div>
-        </div>
+                    <div class="card">
+                        <h3>Upload Files</h3>
+                        <input type="file" id="fileUpload" multiple>
+                        <ul id="fileList"></ul>
+                    </div>
+                </div>
+            </section>
 
-        <!-- FILE UPLOAD -->
-        <div class="card">
-            <h3>Upload Files</h3>
-            <input type="file" id="fileUpload" multiple>
-            <ul id="fileList"></ul>
-        </div>
+            <!-- Tasks -->
+            <section id="tasks" class="content-section">
+                <div class="card full-width">
+                    <h3>Task Manager</h3>
+                    <input type="text" id="taskInput" placeholder="Enter task">
+                    <button onclick="addTask()">Add Task</button>
+                    <div id="taskList"></div>
+                </div>
+            </section>
 
-    </div>
+            <!-- Analytics -->
+            <section id="analytics" class="content-section">
+                <div class="card full-width">
+                    <h3>Productivity Analytics</h3>
+                    <p>Total Tasks: <span id="totalTasks">0</span></p>
+                    <p>Completed Tasks: <span id="analyticsCompleted">0</span></p>
+                    <p>Completion Rate: <span id="completionRate">0%</span></p>
+                </div>
+            </section>
 
-</main>
+            <!-- Resources -->
+            <section id="resources" class="content-section">
+                <div class="grid">
+                    <div class="card"><h3>Notes</h3><p>Organize your study notes efficiently.</p></div>
+                    <div class="card"><h3>Courses</h3><p>Track enrolled courses and progress.</p></div>
+                    <div class="card"><h3>Study Materials</h3><p>Store PDFs, links, and references.</p></div>
+                </div>
+            </section>
 
-<script src="script.js"></script>
-<script>
-lucide.createIcons();
-</script>
+            <!-- Settings -->
+            <section id="settings" class="content-section">
+                <div class="card full-width">
+                    <h3>Settings</h3>
+                    <button onclick="toggleTheme()">Toggle Theme</button>
+                </div>
+            </section>
+        </main>
+    </section>
 
+    <script src="script.js"></script>
+    <script>lucide.createIcons();</script>
 </body>
 </html>
